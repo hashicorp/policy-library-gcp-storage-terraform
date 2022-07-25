@@ -7,7 +7,7 @@ allStorageBuckets = filter tfplan.resource_changes as _, resource_changes {
 			resource_changes.change.actions is ["update"])
 }
 
-print("CIS 5.3: Ensure that logging is enabled for Cloud storage buckets")
+print("Ensure that logging is enabled for Cloud storage buckets")
 
 deny_undefined_logging = rule {
 	all allStorageBuckets as _, bucket {
