@@ -27,8 +27,6 @@ allBucketIAMPolicies = filter tfplan.resource_changes as _, resource_changes {
 			resource_changes.change.actions is ["update"])
 }
 
-print("Ensure that Cloud Storage bucket is not anonymously or publicly accessible")
-
 deny_unsupported_bucket_iam_members = rule {
 	all allBucketIAMMembers as _, member {
 		member.change.after.member not in allUnsupportedMembers
@@ -53,6 +51,18 @@ deny_unsupported_bucket_iam_policies = rule {
 	}
 }
 
+// ---------------------------------------------------------
+// Category:    Storage
+// Provider:    hashicorp/google
+// Resource:    google_storage_bucket_iam_member
+//              google_storage_bucket_iam_binding
+//              google_storage_bucket_iam_policy
+// Check:       iam member is not "allAuthenticatedUsers" or
+//              "allUsers"
+// ---------------------------------------------------------
+// Ensure that Cloud Storage bucket is not anonymously or
+// publicly accessible.
+// ---------------------------------------------------------
 main = rule {
 	deny_unsupported_bucket_iam_policies and
 	deny_unsupported_bucket_iam_bindings and
