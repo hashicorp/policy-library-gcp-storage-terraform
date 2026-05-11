@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2022, 2026
+
 resource_changes = {
 	"google_storage_bucket.that": {
 		"address": "google_storage_bucket.that",
